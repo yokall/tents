@@ -18,14 +18,14 @@ sub get_adjacent_tiles {
         push( @tiles, undef );
     }
 
-    if ( $x + 1 < scalar( $grid->[0] ) ) {
+    if ( $x + 1 < scalar( @{ $grid->[0] } ) ) {
         push( @tiles, $grid->[$y]->[ $x + 1 ] );
     }
     else {
         push( @tiles, undef );
     }
 
-    if ( $y + 1 < scalar($grid) ) {
+    if ( $y + 1 < scalar( @{$grid} ) ) {
         push( @tiles, $grid->[ $y + 1 ]->[$x] );
     }
     else {
