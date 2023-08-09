@@ -4,7 +4,7 @@ use JSON;
 
 use Tents::Puzzle;
 
-sub tent_from_file {
+sub puzzle_from_file {
     my $filepath = shift;
 
     my $data;
