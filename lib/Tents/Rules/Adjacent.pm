@@ -6,6 +6,8 @@ extends 'Tents::Rules::Rule';
 sub apply {
     my ( $self, $x, $y ) = @_;
 
+    return if $self->grid->[$y]->[$x] ne '.';
+
     my $adjacent_tiles = $self->get_adjacent_tiles( $x, $y );
 
     foreach my $tile ( @{$adjacent_tiles} ) {
