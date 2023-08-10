@@ -15,7 +15,7 @@ sub puzzle_from_file {
         close $fh;
     }
 
-    return Tents::Puzzle->new( rows => $data->{rows}, columns => $data->{columns}, grid => $data->{grid} );
+    return Tents::Puzzle->new( row_clues => $data->{row_clues}, column_clues => $data->{column_clues}, grid => $data->{grid} );
 }
 
 1;
