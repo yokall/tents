@@ -1,21 +1,18 @@
+use FindBin;
+use FindBin::libs;
 use Test2::V0;
 
 use Tents::Rules::Rule;
 
-my $grid = [
-    [ ".", ".", ".", "T", "T", "." ],
-    [ ".", ".", "T", ".", ".", "." ],
-    [ ".", "T", ".", ".", ".", "." ],
-    [ ".", ".", ".", ".", "T", "." ],
-    [ ".", "T", ".", ".", ".", "." ],
-    [ ".", ".", ".", ".", "T", "." ]
-];
+use Test::PuzzleFactory;
 
-my $rule = Tents::Rules::Rule->new( grid => $grid );
+my $puzzle = Test::PuzzleFactory::puzzle_from_file( $FindBin::Bin . '/../../data/6x6.json' );
+
+my $rule = Tents::Rules::Rule->new( puzzle => $puzzle );
 
 subtest 'get_adjacent_tiles' => sub {
 
-    is( $rule->get_adjacent_tiles( 1, 1 ), [ ".", "T", "T", "." ], 'should return the value of the 4 adjacent tiles, starting directly above and going clockwise' );
+    is( $rule->get_adjacent_tiles( 1, 1 ), [ ".", ".", ".", "T" ], 'should return the value of the 4 adjacent tiles, starting directly above and going clockwise' );
 
     is( $rule->get_adjacent_tiles( 1, 0 )->[0], undef, 'should return undef for the first element if there is no row above the current tile' );
 

@@ -1,4 +1,4 @@
-package Tents::PuzzleFactory;
+package Test::PuzzleFactory;
 
 use JSON;
 

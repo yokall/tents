@@ -4,19 +4,27 @@ use Moose;
 extends 'Tents::Rules::Rule';
 
 sub apply {
-    my ( $self, $x, $y ) = @_;
+    my $self = shift;
 
-    return if $self->grid->[$y]->[$x] ne '.';
+    my $grid = $self->puzzle->grid;
 
-    my $adjacent_tiles = $self->get_adjacent_tiles( $x, $y );
+ROW:
+    for ( my $y = 0; $y < scalar( @{$grid} ); $y++ ) {
+    COLUMN:
+        for ( my $x = 0; $x < scalar( @{ $grid->[0] } ); $x++ ) {
+            next if $grid->[$y]->[$x] ne '.';
 
-    foreach my $tile ( @{$adjacent_tiles} ) {
-        if ( defined($tile) && $tile eq 'T' ) {
-            return;
+            my $adjacent_tiles = $self->get_adjacent_tiles( $x, $y );
+
+            foreach my $tile ( @{$adjacent_tiles} ) {
+                if ( defined($tile) && $tile eq 'T' ) {
+                    next COLUMN;
+                }
+            }
+
+            $grid->[$y]->[$x] = "G";
         }
     }
-
-    $self->grid->[$y]->[$x] = "G";
 }
 
 1;

@@ -1,28 +1,24 @@
+use FindBin;
+use FindBin::libs;
 use Test2::V0;
 
 use Tents::Rules::Adjacent;
 
-my $grid = [
-    [ ".", ".", ".", "T", "T", "." ],
-    [ ".", ".", "T", ".", ".", "." ],
-    [ ".", "T", ".", ".", ".", "." ],
-    [ ".", ".", ".", ".", "T", "." ],
-    [ ".", "T", ".", ".", ".", "." ],
-    [ ".", ".", ".", ".", "T", "." ]
-];
+use Test::PuzzleFactory;
 
-my $rule = Tents::Rules::Adjacent->new( grid => $grid );
+my $puzzle = Test::PuzzleFactory::puzzle_from_file( $FindBin::Bin . '/../../data/6x6.json' );
+
+my $rule = Tents::Rules::Adjacent->new( puzzle => $puzzle );
 
 subtest 'apply' => sub {
-    $rule->apply( 2, 3 );
-    $rule->apply( 3, 3 );
-    $rule->apply( 0, 0 );
-    $rule->apply( 1, 2 );
+    $rule->apply();
 
-    is( $grid->[3]->[2], 'G', "should set the tile to 'G' if none of the adjacent tiles are trees" );
-    is( $grid->[3]->[3], '.', "should not update the tile if any of the adjacent tiles are trees" );
-    is( $grid->[0]->[0], 'G', "should treat undef tiles as not trees" );
-    is( $grid->[1]->[2], 'T', "should not update the tile if it's a tree" );
+    my $grid = $puzzle->grid;
+
+    is( $grid->[2]->[2], 'G', "should set the tile to 'G' if none of the adjacent tiles are trees" );
+    is( $grid->[1]->[1], '.', "should not update the tile if any of the adjacent tiles are trees" );
+    is( $grid->[5]->[0], 'G', "should treat undef tiles as not trees" );
+    is( $grid->[1]->[0], 'T', "should not update the tile if it's a tree" );
 };
 
 done_testing();
