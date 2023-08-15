@@ -6,11 +6,13 @@ extends 'Tents::Rules::Rule';
 sub apply {
     my $self = shift;
 
+    my $grid = $self->puzzle->grid;
+
 ROW:
-    for ( my $y = 0; $y < scalar( @{ $self->grid } ); $y++ ) {
+    for ( my $y = 0; $y < scalar( @{$grid} ); $y++ ) {
     COLUMN:
-        for ( my $x = 0; $x < scalar( @{ $self->grid->[0] } ); $x++ ) {
-            next if $self->grid->[$y]->[$x] ne '.';
+        for ( my $x = 0; $x < scalar( @{ $grid->[0] } ); $x++ ) {
+            next if $grid->[$y]->[$x] ne '.';
 
             my $adjacent_tiles = $self->get_adjacent_tiles( $x, $y );
 
@@ -20,7 +22,7 @@ ROW:
                 }
             }
 
-            $self->grid->[$y]->[$x] = "G";
+            $grid->[$y]->[$x] = "G";
         }
     }
 }

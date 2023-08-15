@@ -17,7 +17,7 @@ print $puzzle->draw();
 
 print "\nApply adjacent rule\n\n";
 
-my $adjacent_rule = Tents::Rules::Adjacent->new( grid => $puzzle->grid );
+my $adjacent_rule = Tents::Rules::Adjacent->new( puzzle => $puzzle );
 $adjacent_rule->apply();
 
 print $puzzle->draw();

@@ -1,5 +1,6 @@
 use Test2::V0;
 
+use Tents::Puzzle;
 use Tents::Rules::Adjacent;
 
 my $grid = [
@@ -11,7 +12,7 @@ my $grid = [
     [ ".", ".", ".", ".", "T", "." ]
 ];
 
-my $rule = Tents::Rules::Adjacent->new( grid => $grid );
+my $rule = Tents::Rules::Adjacent->new( puzzle => Tents::Puzzle->new( grid => $grid ) );
 
 subtest 'apply' => sub {
     $rule->apply();

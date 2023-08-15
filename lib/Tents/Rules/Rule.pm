@@ -2,12 +2,14 @@ package Tents::Rules::Rule;
 
 use Moose;
 
-has 'grid' => ( is => 'rw', isa => 'ArrayRef[ArrayRef[Str]]' );
+use Tents::Puzzle;
+
+has 'puzzle' => ( is => 'ro', isa => 'Tents::Puzzle' );
 
 sub get_adjacent_tiles {
     my ( $self, $x, $y ) = @_;
 
-    my $grid = $self->grid;
+    my $grid = $self->puzzle->grid;
 
     my @tiles;
 
